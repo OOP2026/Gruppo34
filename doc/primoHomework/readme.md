@@ -280,23 +280,16 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 
 La documentazione della progettazione dello schema UML è disponibile nel file di progetto:
 
-![DIAGRAM.svg](imgs/DIAGRAM.svg)
+![DIAGRAM.svg](imgs/uml.png)
 
 ## Note sulla progettazione UML
 
 - **Modello di dominio puro**: Il diagramma deve contenere solo le entità di dominio (nessuna classe architetturale/controller)
 - **Classi da includere**:
-  - Utente (classe astratta)
-  - Studente
-  - Docente
-  - Tirocinio
-  - TirocinioEsterno
-  - RichiestaTirocinio
-  - Tesi
-  - SedutaLaurea
-  - PrenotazioneSeduta
-- **Relazioni principali**: Le entità sono collegate attraverso associazioni rappresentate nel modello
+  -template 
+  -template
+  -template
+  -template
+  -template
 
 ---
-
-# Triple T Tribute
