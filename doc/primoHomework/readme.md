@@ -6,18 +6,37 @@
   * [2.1 Domande/Ambiguità](#domande-ambiguita)
 * [3. Breakdown Delle Classi](#breakdown-delle-classi)
   * [3.1 Utente (Superclasse)](#-utente-superclasse)
+    * [3.1.1 Attributi](#311-attributi-utente)
+    * [3.1.2 Metodi](#312-metodi-utente)
   * [3.2 Studente](#-studente-specializzazione-di-utente)
+    * [3.2.1 Attributi](#321-attributi-studente)
+    * [3.2.2 Metodi](#322-metodi-studente)
   * [3.3 Docente](#--docente-specializzazione-di-utente)
+    * [3.3.1 Attributi](#331-attributi-docente)
+    * [3.3.2 Metodi](#332-metodi-docente)
   * [3.4 Gestione Tirocini e Tesi](#34-gestione-tirocini-e-tesi)
     * [3.4.1 Tirocinio](#-tirocinio-unifica-argomento-e-tirocinio)
+      * [3.4.1.1 Attributi](#3411-attributi-tirocinio)
+      * [3.4.1.2 Metodi](#3412-metodi-tirocinio)
     * [3.4.2 Tirocinio Esterno](#-tirocinio-esterno-specializzazione-di-tirocinio)
+      * [3.4.2.1 Attributi](#3421-attributi-tirocinio-esterno)
+      * [3.4.2.2 Metodi](#3422-metodi-tirocinio-esterno)
     * [3.4.3 Richiesta Tirocinio](#-richiesta-tirocinio)
+      * [3.4.3.1 Attributi](#3431-attributi-richiesta-tirocinio)
+      * [3.4.3.2 Metodi](#3432-metodi-richiesta-tirocinio)
     * [3.4.4 Tesi](#-tesi)
+      * [3.4.4.1 Attributi](#3441-attributi-tesi)
+      * [3.4.4.2 Metodi](#3442-metodi-tesi)
   * [3.5 Gestione Laurea](#35-gestione-laurea)
     * [3.5.1 Seduta di Laurea](#-seduta-di-laurea)
+      * [3.5.1.1 Attributi](#3511-attributi-seduta-di-laurea)
+      * [3.5.1.2 Metodi](#3512-metodi-seduta-di-laurea)
     * [3.5.2 Prenotazione Seduta](#-prenotazione-seduta)
+      * [3.5.2.1 Attributi](#3521-attributi-prenotazione-seduta)
+      * [3.5.2.2 Metodi](#3522-metodi-prenotazione-seduta)
 * [4. Progettazione UML](#progettazione-uml)
-* [5. Triple T Tribute](#triple-t-tribute)
+* [5. Repository GitHub](#repository-github)
+* [6. Triple T Tribute](#triple-t-tribute)
 
 ---
 
@@ -78,34 +97,65 @@ Possiamo definire il login non come il termine reale (l'azione di inserire mail 
 #### 👤 Utente (Superclasse)
 La classe principale da cui derivano le due specializzazioni **Studente** e **Docente**.
 
-| Attributo | Tipo | Chiave Primaria |
-|-----------|------|----------|
-| `Nome` | String |  |
-| `Cognome` | String |  |
-| `Data di nascita` | Date |  |
-| `Email` | String |  |
-| `Login` | String |  |
-| `Password` | String |  |
+##### 3.1.1 Attributi (Utente)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `nome` | String |  | Nome dell'utente |
+| `cognome` | String |  | Cognome dell'utente |
+| `dataDiNascita` | LocalDate |  | Data di nascita dell'utente |
+| `email` | String |  | Email dell'utente |
+| `login` | String |  | Nominativo per l'accesso al sistema |
+| `password` | String |  | Password per l'autenticazione |
+
+##### 3.1.2 Metodi (Utente)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `effettuaLogin(password)` | String password | boolean | Verifica se la password inserita è corretta |
+| `modificaPassword(nuovaPassword)` | String nuovaPassword | void | Modifica la password dell'utente |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
+
 
 #### 🎓 Studente (Specializzazione di Utente)
 
-| Attributo | Tipo | Chiave Primaria |
-|-----------|------|----------|
-| `Matricola` | String | true |
-| `Corso di laurea` | String | false |
-| `CFU maturati` | Integer | false |
-| `CFU da maturare` | Integer | false |
-| `Anno di immatricolazione` | Year | false |
+##### 3.2.1 Attributi (Studente)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `matricola` | String | true | Identificativo univoco dello studente |
+| `corsoDiLaurea` | String | false | Denominazione del corso di laurea |
+| `cfuMaturati` | Integer | false | Crediti formativi universitari acquisiti |
+| `cfuDaMaturare` | Integer | false | Crediti formativi universitari rimanenti |
+| `annoImmatricolazione` | Year | false | Anno di iscrizione al corso |
+
+##### 3.2.2 Metodi (Studente)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `richiediTirocinio(tirocinio)` | Tirocinio t | RichiestaTirocinio | Crea una nuova richiesta di tirocinio |
+| `caricaTesi(tesi)` | Tesi t | void | Carica una tesi nel sistema |
+| `prenotaSedutaLaurea(seduta)` | SedutaLaurea s | PrenotazioneSeduta | Crea una prenotazione per una seduta di laurea |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 #### 👨‍🏫 Docente (Specializzazione di Utente)
 Include anche il ruolo di Relatore per i tirocini seguiti.
 
-| Attributo | Tipo | Chiave Primaria |
-|-----------|------|----------|
-| `ID_Doc` | String | true |
-| `Corsi di insegnamento` | List | false |
-| `Argomenti di tirocinio` | List | false |
-| `is_coordinatore` | Boolean | false |
+##### 3.3.1 Attributi (Docente)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idDocente` | String | true | Identificativo univoco del docente |
+| `isCoordinatore` | Boolean | false | Indica se il docente è coordinatore di corso |
+
+##### 3.3.2 Metodi (Docente)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `pubblicaArgomentoTirocinio(tirocinio)` | Tirocinio t | void | Pubblica un nuovo argomento di tirocinio |
+| `valutaRichiestaTirocinio(richiesta, esito)` | RichiestaTirocinio r, boolean esito | void | Valuta l'approvazione/rifiuto di una richiesta |
+| `valutaTesi(tesi, approvata)` | Tesi t, boolean approvata | void | Valuta l'approvazione di una tesi |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 ---
 
@@ -113,28 +163,78 @@ Include anche il ruolo di Relatore per i tirocini seguiti.
 
 #### 💼 Tirocinio (Unifica "Argomento" e "Tirocinio")
 
-| Attributo | Tipo | Chiave Primaria |
-|-----------|------|----------|
-| `ID tirocinio` | String | true|
-| `Argomento tirocinio` | String |  |
-| `Data di inizio` | Date |  |
-| `Totale ore` | Integer |  |
-| `Stato Richiesta` | String |  |
+##### 3.4.1.1 Attributi (Tirocinio)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idTirocinio` | String | true | Identificativo univoco del tirocinio |
+| `argomento` | String | false | Tema/argomento del tirocinio |
+| `totaleOre` | Integer | false | Numero totale di ore previste |
+| `docenteProponente` | Docente | false | Docente che propone il tirocinio |
+
+##### 3.4.1.2 Metodi (Tirocinio)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `getDettagliTirocinio()` | - | String | Restituisce i dettagli formattati del tirocinio |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 #### 🏢 Tirocinio Esterno (Specializzazione di Tirocinio)
 
-| Attributo | Tipo | Chiave Primaria |
-|-----------|------|----------|
-| `Referente aziendale` | String |  |
-| `Azienda seguita` | String |  |
+##### 3.4.2.1 Attributi (Tirocinio Esterno)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `aziendaSeguita` | String | false | Nome dell'azienda ospitante |
+| `referenteAziendale` | String | false | Nominativo della persona di riferimento in azienda |
+
+##### 3.4.2.2 Metodi (Tirocinio Esterno)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi specifici |
 
 #### 📝 Richiesta Tirocinio
 Classe che gestisce la candidatura di uno studente per un determinato tirocinio.
-*(DA DEF)*
+
+##### 3.4.3.1 Attributi (Richiesta Tirocinio)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idRichiesta` | String | true | Identificativo univoco della richiesta (formato: REQ-timestamp) |
+| `studenteRichiedente` | Studente | false | Riferimento allo studente che presenta la richiesta |
+| `tirocinioRichiesto` | Tirocinio | false | Riferimento al tirocinio richiesto |
+| `dataInizio` | LocalDate | false | Data in cui è stata creata la richiesta |
+| `statoRichiesta` | String | false | Stato della richiesta: "In Attesa", "Approvata", "Respinta" |
+
+##### 3.4.3.2 Metodi (Richiesta Tirocinio)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `aggiornaStato(nuovoStato)` | String nuovoStato | void | Aggiorna lo stato della richiesta se il valore è valido |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 #### 📚 Tesi
 Rappresenta il lavoro finale caricato dallo studente.
-*(DA DEF)*
+
+##### 3.4.4.1 Attributi (Tesi)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idTesi` | String | true | Identificativo univoco della tesi |
+| `titolo` | String | false | Titolo della tesi |
+| `percorsoFile` | String | false | Percorso o URL al file della tesi (PDF/documento) |
+| `autore` | Studente | false | Riferimento allo studente autore |
+| `relatore` | Docente | false | Riferimento al docente relatore |
+| `statoApprovazione` | String | false | Stato: "Bozza", "Revisione", "Approvata" |
+
+##### 3.4.4.2 Metodi (Tesi)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `richiediRevisione()` | - | void | Cambia lo stato da "Bozza" a "Revisione" |
+| `approvaTesi()` | - | void | Approva la tesi impostando lo stato a "Approvata" |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 ---
 
@@ -142,13 +242,110 @@ Rappresenta il lavoro finale caricato dallo studente.
 
 #### 🎓 Seduta di Laurea
 Rappresenta l'evento in cui avvengono le discussioni delle tesi.
-*(DA DEF)*
+
+##### 3.5.1.1 Attributi (Seduta di Laurea)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idSeduta` | String | true | Identificativo univoco della seduta |
+| `dataSeduta` | LocalDate | false | Data della seduta di laurea |
+| `orarioInizio` | LocalTime | false | Orario di inizio della seduta |
+| `aula` | String | false | Denominazione dell'aula in cui si svolge |
+| `postiDisponibili` | Integer | false | Numero di posti disponibili nella seduta |
+
+##### 3.5.1.2 Metodi (Seduta di Laurea)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `verificaDisponibilita()` | - | boolean | Verifica se ci sono posti disponibili |
+| `decrementaPosti()` | - | void | Decrementa il numero di posti disponibili |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 #### 📅 Prenotazione Seduta
 Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
-*(DA DEF)*
+
+##### 3.5.2.1 Attributi (Prenotazione Seduta)
+
+| Attributo | Tipo | Chiave Primaria | Descrizione |
+|-----------|------|----------|-------------|
+| `idPrenotazione` | String | true | Identificativo univoco della prenotazione (formato: PREN-timestamp) |
+| `studente` | Studente | false | Riferimento allo studente che prenota |
+| `seduta` | SedutaLaurea | false | Riferimento alla seduta di laurea |
+| `dataPrenotazione` | LocalDate | false | Data in cui è stata effettuata la prenotazione |
+
+##### 3.5.2.2 Metodi (Prenotazione Seduta)
+
+| Metodo | Parametri | Ritorno | Descrizione |
+|--------|-----------|---------|-------------|
+| `confermaPrenotazione()` | - | boolean | Conferma la prenotazione e decrementa i posti se disponibili |
+| Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
 
 # PROGETTAZIONE UML
- link alla documentazione della progettazione dello schema UML
-![DRAWIO DA FINIRE](imgs/DIAGRAM.svg)
+
+> **⚠️ IMPORTANTE**: La progettazione UML deve essere completata utilizzando **Visual Paradigm** e salvata con estensione `.vpp`.
+
+La documentazione della progettazione dello schema UML è disponibile nel file di progetto:
+
+![DIAGRAM.svg](imgs/DIAGRAM.svg)
+
+## Note sulla progettazione UML
+
+- **Modello di dominio puro**: Il diagramma deve contenere solo le entità di dominio (nessuna classe architetturale/controller)
+- **Classi da includere**:
+  - Utente (classe astratta)
+  - Studente
+  - Docente
+  - Tirocinio
+  - TirocinioEsterno
+  - RichiestaTirocinio
+  - Tesi
+  - SedutaLaurea
+  - PrenotazioneSeduta
+- **Relazioni principali**: Le entità sono collegate attraverso associazioni rappresentate nel modello
+
+---
+
+# Repository GitHub
+
+> **⚠️ IMPORTANTE**: Il repository GitHub deve essere creato e il codice Java deve essere caricato (commit & push).
+
+## Repository URL
+
+**Repository URL**: [Inserire URL del repository GitHub]
+
+## Contenuto del Repository
+
+Il repository contiene:
+- Codice sorgente Java (package `model`)
+- Struttura del progetto Maven
+- Documentazione progettuale
+
+## Struttura del Progetto
+
+```
+Gruppo34/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── model/
+│   │           ├── Utente.java
+│   │           ├── Studente.java
+│   │           ├── Docente.java
+│   │           ├── Tirocinio.java
+│   │           ├── TirocinioEsterno.java
+│   │           ├── RichiestaTirocinio.java
+│   │           ├── Tesi.java
+│   │           ├── SedutaLaurea.java
+│   │           ├── PrenotazioneSeduta.java
+│   │           └── TestModel.java
+│   └── test/
+├── doc/
+│   └── primoHomework/
+│       ├── readme.md (questo file)
+│       ├── imgs/
+│       │   └── DIAGRAM.svg
+│       └── Traccia2.pdf
+├── pom.xml
+└── README.md
+```
