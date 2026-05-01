@@ -275,21 +275,39 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 ---
 
 # PROGETTAZIONE UML
-
-> **⚠️ IMPORTANTE**: questa sezione è un template ed è da completare.
-
-La documentazione della progettazione dello schema UML è disponibile nel file di progetto:
-
 ![DIAGRAM.svg](imgs/uml.png)
 
 ## Note sulla progettazione UML
 
 - **Modello di dominio puro**: Il diagramma deve contenere solo le entità di dominio (nessuna classe architetturale/controller)
 - **Classi da includere**:
-  -template 
-  -template
-  -template
-  -template
-  -template
+  - Utente
+  - Studente
+  - Docente
+  - Tirocinio
+  - Tirocinio Esterno
+  - Richiesta Tirocinio
+  - Tesi
+  - Seduta di Laurea
+  - Prenotazione Seduta
+
+---
+
+## ⚠️ Nota: Differenze tra UML/Documentazione
+
+L'UML attuale **violates il requisito di "modello di dominio puro"** e presenta le seguenti difformità dalla documentazione:
+
+### Problemi Principali:
+1. **Classi architetturali presenti**: Server, GestioneUtenza, GestioneTirocinio, GestioneTesi, GestioneLaurea (non previste)
+2. **Classi di dominio mancanti**: Richiesta Tirocinio (collassata in Tirocinio), Prenotazione Seduta (collassata in lista)
+3. **Metodi rimossi dalle entità** e spostati ai controller (anemic domain model)
+4. **Attributi mancanti**: 12+ tra cui idTirocinio, corsoDiLaurea, cfuMaturati/Damamaturare, postiDisponibili, etc.
+
+### Impatti Critici:
+- Perdita di tracciabilità storica (prenotazioni, richieste)
+- Entità di dominio senza comportamento (getter/setter only)
+- Confusione semantica tra Tirocinio e RichiestaTirocinio
+- Perdita di controllo sulla capienza delle sedute
+- Informazioni aziendali non tracciabili (referente aziendale)
 
 ---
