@@ -5,38 +5,26 @@
 * [2. Analisi Delle Classi](#analisi-delle-classi)
   * [2.1 Domande/Ambiguità](#domande-ambiguita)
 * [3. Breakdown Delle Classi](#breakdown-delle-classi)
-  * [3.1 Utente (Superclasse)](#-utente-superclasse)
-    * [3.1.1 Attributi](#311-attributi-utente)
-    * [3.1.2 Metodi](#312-metodi-utente)
-  * [3.2 Studente](#-studente-specializzazione-di-utente)
-    * [3.2.1 Attributi](#321-attributi-studente)
-    * [3.2.2 Metodi](#322-metodi-studente)
-  * [3.3 Docente](#--docente-specializzazione-di-utente)
-    * [3.3.1 Attributi](#331-attributi-docente)
-    * [3.3.2 Metodi](#332-metodi-docente)
-  * [3.4 Gestione Tirocini e Tesi](#34-gestione-tirocini-e-tesi)
-    * [3.4.1 Tirocinio](#-tirocinio-unifica-argomento-e-tirocinio)
-      * [3.4.1.1 Attributi](#3411-attributi-tirocinio)
-      * [3.4.1.2 Metodi](#3412-metodi-tirocinio)
-    * [3.4.2 Tirocinio Esterno](#-tirocinio-esterno-specializzazione-di-tirocinio)
-      * [3.4.2.1 Attributi](#3421-attributi-tirocinio-esterno)
-      * [3.4.2.2 Metodi](#3422-metodi-tirocinio-esterno)
-    * [3.4.3 Richiesta Tirocinio](#-richiesta-tirocinio)
-      * [3.4.3.1 Attributi](#3431-attributi-richiesta-tirocinio)
-      * [3.4.3.2 Metodi](#3432-metodi-richiesta-tirocinio)
-    * [3.4.4 Tesi](#-tesi)
-      * [3.4.4.1 Attributi](#3441-attributi-tesi)
-      * [3.4.4.2 Metodi](#3442-metodi-tesi)
-  * [3.5 Gestione Laurea](#35-gestione-laurea)
-    * [3.5.1 Seduta di Laurea](#-seduta-di-laurea)
-      * [3.5.1.1 Attributi](#3511-attributi-seduta-di-laurea)
-      * [3.5.1.2 Metodi](#3512-metodi-seduta-di-laurea)
-    * [3.5.2 Prenotazione Seduta](#-prenotazione-seduta)
-      * [3.5.2.1 Attributi](#3521-attributi-prenotazione-seduta)
-      * [3.5.2.2 Metodi](#3522-metodi-prenotazione-seduta)
+  * [3.1 Gerarchia Utenti](#gerarchia-utenti)
+  * [3.2 Gestione Tirocini e Tesi](#34-gestione-tirocini-e-tesi)
+  * [3.3 Gestione Laurea](#35-gestione-laurea)
 * [4. Progettazione UML](#progettazione-uml)
-* [5. Repository GitHub](#repository-github)
-* [6. Triple T Tribute](#triple-t-tribute)
+* [5. Triple T Tribute](#triple-t-tribute)
+
+### 3.1 Gerarchia Utenti
+* [3.1.1 Utente (Superclasse)](#-utente-superclasse)
+* [3.1.2 Studente](#-studente-specializzazione-di-utente)
+* [3.1.3 Docente](#--docente-specializzazione-di-utente)
+
+### 3.2 Gestione Tirocini e Tesi
+* [3.2.1 Tirocinio](#-tirocinio-unifica-argomento-e-tirocinio)
+* [3.2.2 Tirocinio Esterno](#-tirocinio-esterno-specializzazione-di-tirocinio)
+* [3.2.3 Richiesta Tirocinio](#-richiesta-tirocinio)
+* [3.2.4 Tesi](#-tesi)
+
+### 3.3 Gestione Laurea
+* [3.3.1 Seduta di Laurea](#-seduta-di-laurea)
+* [3.3.2 Prenotazione Seduta](#-prenotazione-seduta)
 
 ---
 
@@ -283,7 +271,7 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 
 # PROGETTAZIONE UML
 
-> **⚠️ IMPORTANTE**: La progettazione UML deve essere completata utilizzando **Visual Paradigm** e salvata con estensione `.vpp`.
+> **⚠️ IMPORTANTE**: questa sezione è un template ed è da completare.
 
 La documentazione della progettazione dello schema UML è disponibile nel file di progetto:
 
@@ -303,49 +291,3 @@ La documentazione della progettazione dello schema UML è disponibile nel file d
   - SedutaLaurea
   - PrenotazioneSeduta
 - **Relazioni principali**: Le entità sono collegate attraverso associazioni rappresentate nel modello
-
----
-
-# Repository GitHub
-
-> **⚠️ IMPORTANTE**: Il repository GitHub deve essere creato e il codice Java deve essere caricato (commit & push).
-
-## Repository URL
-
-**Repository URL**: [Inserire URL del repository GitHub]
-
-## Contenuto del Repository
-
-Il repository contiene:
-- Codice sorgente Java (package `model`)
-- Struttura del progetto Maven
-- Documentazione progettuale
-
-## Struttura del Progetto
-
-```
-Gruppo34/
-├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── model/
-│   │           ├── Utente.java
-│   │           ├── Studente.java
-│   │           ├── Docente.java
-│   │           ├── Tirocinio.java
-│   │           ├── TirocinioEsterno.java
-│   │           ├── RichiestaTirocinio.java
-│   │           ├── Tesi.java
-│   │           ├── SedutaLaurea.java
-│   │           ├── PrenotazioneSeduta.java
-│   │           └── TestModel.java
-│   └── test/
-├── doc/
-│   └── primoHomework/
-│       ├── readme.md (questo file)
-│       ├── imgs/
-│       │   └── DIAGRAM.svg
-│       └── Traccia2.pdf
-├── pom.xml
-└── README.md
-```
