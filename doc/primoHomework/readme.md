@@ -3,32 +3,17 @@
 
 * [1. Traccia](Traccia2.pdf)
 * [2. Analisi Delle Classi](#analisi-delle-classi)
-  * [2.1 Domande/Ambiguità](#domande-ambiguita)
 * [3. Breakdown Delle Classi](#breakdown-delle-classi)
-  * [3.1 Gerarchia Utenti](#gerarchia-utenti)
-  * [3.2 Gestione Tirocini e Tesi](#34-gestione-tirocini-e-tesi)
-  * [3.3 Gestione Laurea](#35-gestione-laurea)
 * [4. Progettazione UML](#progettazione-uml)
 * [5. Triple T Tribute](#triple-t-tribute)
-
-### 3.1 Gerarchia Utenti
-* [3.1.1 Utente (Superclasse)](#-utente-superclasse)
-* [3.1.2 Studente](#-studente-specializzazione-di-utente)
-* [3.1.3 Docente](#--docente-specializzazione-di-utente)
-
-### 3.2 Gestione Tirocini e Tesi
-* [3.2.1 Tirocinio](#-tirocinio-unifica-argomento-e-tirocinio)
-* [3.2.2 Tirocinio Esterno](#-tirocinio-esterno-specializzazione-di-tirocinio)
-* [3.2.3 Richiesta Tirocinio](#-richiesta-tirocinio)
-* [3.2.4 Tesi](#-tesi)
-
-### 3.3 Gestione Laurea
-* [3.3.1 Seduta di Laurea](#-seduta-di-laurea)
-* [3.3.2 Prenotazione Seduta](#-prenotazione-seduta)
 
 ---
 
 # Analisi Delle Classi
+
+### Indice della Sezione
+* [Domande/Ambiguità](#domande-ambiguita)
+
 I principali utilizzatori sono:
 Studenti, Docenti.   
 
@@ -82,10 +67,19 @@ Possiamo definire il login non come il termine reale (l'azione di inserire mail 
 
 # BREAKDOWN DELLE CLASSI
 
+### Indice della Sezione
+* [Gerarchia Utenti](#gerarchia-utenti)
+* [Gestione Tirocini e Tesi](#gestione-tirocini-e-tesi)
+* [Gestione Laurea](#gestione-laurea)
+
+---
+
+## Gerarchia Utenti
+
 #### 👤 Utente (Superclasse)
 La classe principale da cui derivano le due specializzazioni **Studente** e **Docente**.
 
-##### 3.1.1 Attributi (Utente)
+##### Attributi (Utente)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -96,7 +90,7 @@ La classe principale da cui derivano le due specializzazioni **Studente** e **Do
 | `login` | String |  | Nominativo per l'accesso al sistema |
 | `password` | String |  | Password per l'autenticazione |
 
-##### 3.1.2 Metodi (Utente)
+##### Metodi (Utente)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -107,7 +101,7 @@ La classe principale da cui derivano le due specializzazioni **Studente** e **Do
 
 #### 🎓 Studente (Specializzazione di Utente)
 
-##### 3.2.1 Attributi (Studente)
+##### Attributi (Studente)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -117,7 +111,7 @@ La classe principale da cui derivano le due specializzazioni **Studente** e **Do
 | `cfuDaMaturare` | Integer | false | Crediti formativi universitari rimanenti |
 | `annoImmatricolazione` | Year | false | Anno di iscrizione al corso |
 
-##### 3.2.2 Metodi (Studente)
+##### Metodi (Studente)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -129,14 +123,14 @@ La classe principale da cui derivano le due specializzazioni **Studente** e **Do
 #### 👨‍🏫 Docente (Specializzazione di Utente)
 Include anche il ruolo di Relatore per i tirocini seguiti.
 
-##### 3.3.1 Attributi (Docente)
+##### Attributi (Docente)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
 | `idDocente` | String | true | Identificativo univoco del docente |
 | `isCoordinatore` | Boolean | false | Indica se il docente è coordinatore di corso |
 
-##### 3.3.2 Metodi (Docente)
+##### Metodi (Docente)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -147,11 +141,17 @@ Include anche il ruolo di Relatore per i tirocini seguiti.
 
 ---
 
-### 3.4 Gestione Tirocini e Tesi
+## Gestione Tirocini e Tesi
+
+### Indice della Sezione
+* [Tirocinio](#tirocinio-unifica-argomento-e-tirocinio)
+* [Tirocinio Esterno](#tirocinio-esterno-specializzazione-di-tirocinio)
+* [Richiesta Tirocinio](#richiesta-tirocinio)
+* [Tesi](#tesi)
 
 #### 💼 Tirocinio (Unifica "Argomento" e "Tirocinio")
 
-##### 3.4.1.1 Attributi (Tirocinio)
+##### Attributi (Tirocinio)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -160,7 +160,7 @@ Include anche il ruolo di Relatore per i tirocini seguiti.
 | `totaleOre` | Integer | false | Numero totale di ore previste |
 | `docenteProponente` | Docente | false | Docente che propone il tirocinio |
 
-##### 3.4.1.2 Metodi (Tirocinio)
+##### Metodi (Tirocinio)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -169,14 +169,14 @@ Include anche il ruolo di Relatore per i tirocini seguiti.
 
 #### 🏢 Tirocinio Esterno (Specializzazione di Tirocinio)
 
-##### 3.4.2.1 Attributi (Tirocinio Esterno)
+##### Attributi (Tirocinio Esterno)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
 | `aziendaSeguita` | String | false | Nome dell'azienda ospitante |
 | `referenteAziendale` | String | false | Nominativo della persona di riferimento in azienda |
 
-##### 3.4.2.2 Metodi (Tirocinio Esterno)
+##### Metodi (Tirocinio Esterno)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -185,7 +185,7 @@ Include anche il ruolo di Relatore per i tirocini seguiti.
 #### 📝 Richiesta Tirocinio
 Classe che gestisce la candidatura di uno studente per un determinato tirocinio.
 
-##### 3.4.3.1 Attributi (Richiesta Tirocinio)
+##### Attributi (Richiesta Tirocinio)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -195,7 +195,7 @@ Classe che gestisce la candidatura di uno studente per un determinato tirocinio.
 | `dataInizio` | LocalDate | false | Data in cui è stata creata la richiesta |
 | `statoRichiesta` | String | false | Stato della richiesta: "In Attesa", "Approvata", "Respinta" |
 
-##### 3.4.3.2 Metodi (Richiesta Tirocinio)
+##### Metodi (Richiesta Tirocinio)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -205,7 +205,7 @@ Classe che gestisce la candidatura di uno studente per un determinato tirocinio.
 #### 📚 Tesi
 Rappresenta il lavoro finale caricato dallo studente.
 
-##### 3.4.4.1 Attributi (Tesi)
+##### Attributi (Tesi)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -216,7 +216,7 @@ Rappresenta il lavoro finale caricato dallo studente.
 | `relatore` | Docente | false | Riferimento al docente relatore |
 | `statoApprovazione` | String | false | Stato: "Bozza", "Revisione", "Approvata" |
 
-##### 3.4.4.2 Metodi (Tesi)
+##### Metodi (Tesi)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -226,12 +226,16 @@ Rappresenta il lavoro finale caricato dallo studente.
 
 ---
 
-### 3.5 Gestione Laurea
+## Gestione Laurea
+
+### Indice della Sezione
+* [Seduta di Laurea](#seduta-di-laurea)
+* [Prenotazione Seduta](#prenotazione-seduta)
 
 #### 🎓 Seduta di Laurea
 Rappresenta l'evento in cui avvengono le discussioni delle tesi.
 
-##### 3.5.1.1 Attributi (Seduta di Laurea)
+##### Attributi (Seduta di Laurea)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -241,7 +245,7 @@ Rappresenta l'evento in cui avvengono le discussioni delle tesi.
 | `aula` | String | false | Denominazione dell'aula in cui si svolge |
 | `postiDisponibili` | Integer | false | Numero di posti disponibili nella seduta |
 
-##### 3.5.1.2 Metodi (Seduta di Laurea)
+##### Metodi (Seduta di Laurea)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
@@ -252,7 +256,7 @@ Rappresenta l'evento in cui avvengono le discussioni delle tesi.
 #### 📅 Prenotazione Seduta
 Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 
-##### 3.5.2.1 Attributi (Prenotazione Seduta)
+##### Attributi (Prenotazione Seduta)
 
 | Attributo | Tipo | Chiave Primaria | Descrizione |
 |-----------|------|----------|-------------|
@@ -261,13 +265,14 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 | `seduta` | SedutaLaurea | false | Riferimento alla seduta di laurea |
 | `dataPrenotazione` | LocalDate | false | Data in cui è stata effettuata la prenotazione |
 
-##### 3.5.2.2 Metodi (Prenotazione Seduta)
+##### Metodi (Prenotazione Seduta)
 
 | Metodo | Parametri | Ritorno | Descrizione |
 |--------|-----------|---------|-------------|
 | `confermaPrenotazione()` | - | boolean | Conferma la prenotazione e decrementa i posti se disponibili |
 | Getter e Setter | - | - | Metodi per accedere e modificare gli attributi |
 
+---
 
 # PROGETTAZIONE UML
 
@@ -291,3 +296,7 @@ La documentazione della progettazione dello schema UML è disponibile nel file d
   - SedutaLaurea
   - PrenotazioneSeduta
 - **Relazioni principali**: Le entità sono collegate attraverso associazioni rappresentate nel modello
+
+---
+
+# Triple T Tribute
