@@ -61,39 +61,9 @@ L'UML iniziale violava il requisito di "modello di dominio puro" presentando le 
 
 ---
 
-## 3. Refactoring Completato: Pattern Anemic Domain Model
+## 3. Risoluzione Adottata
 
-Per risolvere le criticità sopra citate, è stato applicato rigorosamente il pattern Modello Anemico. Ecco gli interventi effettuati:
-
-### Entità Pulite
-
-È stata rimossa tutta la logica di business dalle classi di dominio:
-
-- **Docente.java** - Rimossi `pubblicaArgomentoTirocinio()`, `valutaRichiestaTirocinio()`, `valutaTesi()`
-- **Studente.java** - Rimossi `richiediTirocinio()`, `caricaTesi()`, `prenotaSedutaLaurea()`
-- **Tesi.java** - Rimossi `richiediRevisione()`, `approvaTesi()`
-- **PrenotazioneSeduta.java** - Rimosso `confermaPrenotazione()`
-
-### Manager/Service Creati
-
-- **TirocinioManager.java** - Gestisce la logica dei tirocini
-- **RichiestaTirocinioManager.java** - Crea e valuta richieste
-- **TesiManager.java** - Gestisce caricamento, revisione e approvazione tesi
-- **PrenotazioneManager.java** - Crea e conferma prenotazioni
-
-### TestModel.java Aggiornato
-
-Il file di test è stato riorganizzato per dimostrare l'uso corretto dei Manager:
-
-- Sezioni chiaramente divise per funzionalità
-- Istanziazione di Manager per ogni operazione di business logic
-- Output organizzato con commenti esplicativi
-
-### Struttura Finale Ottenuta:
-
-- ✅ **Entità** = Soli dati + getter/setter minori
-- ✅ **Manager** = Tutta la logica di business
-- ✅ **TestModel** = Dimostra il flusso applicativo completo
+Applicazione del pattern Anemic Domain Model: logica di business spostata dalle entità ai Manager corrispondenti. Le entità contengono solo dati, i Manager gestiscono tutta la logica operativa.
 
 ---
 
