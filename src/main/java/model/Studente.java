@@ -20,20 +20,6 @@ public class Studente extends Utente {
         this.annoImmatricolazione = annoImmatricolazione;
     }
 
-    public RichiestaTirocinio richiediTirocinio(Tirocinio t) {
-        RichiestaTirocinio richiesta = new RichiestaTirocinio(this, t);
-        return richiesta;
-    }
-
-    public void caricaTesi(Tesi t) {
-        // Logica per caricare una tesi
-    }
-
-    public PrenotazioneSeduta prenotaSedutaLaurea(SedutaLaurea s) {
-        PrenotazioneSeduta prenotazione = new PrenotazioneSeduta(this, s);
-        return prenotazione;
-    }
-
     public String getMatricola() {
         return matricola;
     }

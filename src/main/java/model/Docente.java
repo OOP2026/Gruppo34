@@ -13,18 +13,6 @@ public class Docente extends Utente {
         this.isCoordinatore = isCoordinatore;
     }
 
-    public void pubblicaArgomentoTirocinio(Tirocinio t) {
-        // Logica per pubblicare un argomento di tirocinio
-    }
-
-    public void valutaRichiestaTirocinio(RichiestaTirocinio r, boolean esito) {
-        // Logica per valutare una richiesta di tirocinio
-    }
-
-    public void valutaTesi(Tesi t, boolean approvata) {
-        // Logica per valutare una tesi
-    }
-
     public String getIdDocente() {
         return idDocente;
     }

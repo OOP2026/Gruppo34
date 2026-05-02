@@ -26,16 +26,6 @@ public class Tesi {
         this.statoApprovazione = statoApprovazione;
     }
 
-    public void richiediRevisione() {
-        if (this.statoApprovazione.equals("Bozza")) {
-            this.statoApprovazione = "Revisione";
-        }
-    }
-
-    public void approvaTesi() {
-        this.statoApprovazione = "Approvata";
-    }
-
     public String getIdTesi() {
         return idTesi;
     }

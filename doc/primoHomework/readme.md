@@ -2,68 +2,133 @@
 ## 📑 Indice della Documentazione
 
 * [1. Traccia](Traccia2.pdf)
-* [2. Analisi Delle Classi](#analisi-delle-classi)
-* [3. Breakdown Delle Classi](#breakdown-delle-classi)
-* [4. Progettazione UML](#progettazione-uml)
-* [5. Triple T Tribute](#triple-t-tribute)
+* [2. Metodologie di Approccio](#metodologie-di-approccio)
+* [3. Analisi Delle Classi](#analisi-delle-classi)
+* [4. Breakdown Delle Classi](#breakdown-delle-classi)
+* [5. Progettazione UML](#progettazione-uml)
+* [6. Triple T Tribute](#triple-t-tribute)
+
+---
+
+# Metodologie di Approccio
+
+### Indice della Sezione
+* [1. Domande e Ambiguità](#1-domande-e-ambiguità)
+* [2. Criticità Architetturali](#2-criticità-architetturali)
+* [3. Refactoring Completato](#3-refactoring-completato)
+
+---
+
+## 1. Domande e Ambiguità
+
+| Quesito | Stato |
+|---------|-------|
+| Tutti i docenti sono relatori? | [Risolto](#domande---risposta-1) |
+| Il docente ha una matricola/anno immatricolazione? | [Risolto](#domande---risposta-2) |
+| Cosa si intende con "login"? | [Risolto](#domande---risposta-3) |
+
+### Domande - Risposta 1: Tutti i docenti sono relatori?
+
+Sì, non esiste alcuna differenza tra relatori e docenti, sono una cosa unica.
+
+### Domande - Risposta 2: Il docente ha una matricola?
+
+Il docente ha un suo identificativo univoco non collegato alla matricola del comune studente, di conseguenza non può avere un anno di immatricolazione.
+
+### Domande - Risposta 3: Cosa si intende con login?
+
+Possiamo definire il login non come il termine reale (l'azione di inserire mail e password o id su un sito per accedere) ma bensì come un attributo singolo e atomico (ovvero non composto; perché lo intendiamo come nominativo per l'accesso).
+
+---
+
+## 2. Criticità Architetturali
+
+L'UML iniziale violava il requisito di "modello di dominio puro" presentando le seguenti difformità rispetto alla documentazione:
+
+### Problemi Principali Rilevati:
+
+1. **Classi architetturali presenti**: Server, GestioneUtenza, GestioneTirocinio, GestioneTesi, GestioneLaurea (non previste)
+2. **Classi di dominio mancanti**: Richiesta Tirocinio (collassata in Tirocinio), Prenotazione Seduta (collassata in lista)
+3. **Metodi rimossi dalle entità** e spostati ai controller (anemic domain model)
+4. **Attributi mancanti**: Oltre 12 attributi mancanti, tra cui idTirocinio, corsoDiLaurea, cfuMaturati/DaMaturare, postiDisponibili, ecc.
+
+### Impatti Critici:
+
+- Perdita di tracciabilità storica (prenotazioni, richieste)
+- Entità di dominio senza comportamento (getter/setter only)
+- Confusione semantica tra Tirocinio e RichiestaTirocinio
+- Perdita di controllo sulla capienza delle sedute
+- Informazioni aziendali non tracciabili (referente aziendale)
+
+---
+
+## 3. Refactoring Completato: Pattern Anemic Domain Model
+
+Per risolvere le criticità sopra citate, è stato applicato rigorosamente il pattern Modello Anemico. Ecco gli interventi effettuati:
+
+### 📋 Entità Pulite
+
+È stata rimossa tutta la logica di business dalle classi di dominio:
+
+- **Docente.java** - Rimossi `pubblicaArgomentoTirocinio()`, `valutaRichiestaTirocinio()`, `valutaTesi()`
+- **Studente.java** - Rimossi `richiediTirocinio()`, `caricaTesi()`, `prenotaSedutaLaurea()`
+- **Tesi.java** - Rimossi `richiediRevisione()`, `approvaTesi()`
+- **PrenotazioneSeduta.java** - Rimosso `confermaPrenotazione()`
+
+### ⚙️ Manager/Service Creati
+
+- **TirocinioManager.java** - Gestisce la logica dei tirocini
+- **RichiestaTirocinioManager.java** - Crea e valuta richieste
+- **TesiManager.java** - Gestisce caricamento, revisione e approvazione tesi
+- **PrenotazioneManager.java** - Crea e conferma prenotazioni
+
+### 🧪 TestModel.java Aggiornato
+
+Il file di test è stato riorganizzato per dimostrare l'uso corretto dei Manager:
+
+- Sezioni chiaramente divise per funzionalità
+- Istanziazione di Manager per ogni operazione di business logic
+- Output organizzato con commenti esplicativi
+
+### Struttura Finale Ottenuta:
+
+- ✅ **Entità** = Soli dati + getter/setter minori
+- ✅ **Manager** = Tutta la logica di business
+- ✅ **TestModel** = Dimostra il flusso applicativo completo
 
 ---
 
 # Analisi Delle Classi
 
-### Indice della Sezione
-* [Domande/Ambiguità](#domande-ambiguita)
-
 I principali utilizzatori sono:
-Studenti, Docenti.   
+Studenti e Docenti.
 
-ogni studente deve avere:
-Un Nome.
-Un Cognome.
-Una E-Mail.
-Una Matricola [che ci servirà come identificativo].
-Login.
-Password.
+Ogni studente deve avere:
+- Un Nome
+- Un Cognome
+- Una E-Mail
+- Una Matricola [che ci servirà come identificativo]
+- Login
+- Password
 
-in oltre lo studente può vedere l'elenco dei docenti con annessi argomenti disponibili. 
-può effettuare una richiesta di tirocinio 
-controllare se la proria richiesta è accettata o respinta.
-può effettuarne una nuova nel caso fosse stata respinta.
-caricare/richiesta della tesi nel caso fosse stata approvata.
-e in caso di rifiuto può chiederne la revisione.
+Inoltre lo studente può:
+- Vedere l'elenco dei docenti con annessi argomenti disponibili
+- Effettuare una richiesta di tirocinio
+- Controllare se la propria richiesta è accettata o respinta
+- Effettuarne una nuova nel caso fosse stata respinta
+- Effettuare il caricamento/richiesta della tesi nel caso fosse stata approvata
+- Chiedere la revisione in caso di rifiuto
 
+Ogni Docente, in maniera praticamente analoga, deve avere:
+- Un Nome
+- Un Cognome
+- Una E-Mail
+- ID_Doc [che ci servirà come identificativo]
+- Login
+- Password
+- Tirocinio (possibile tabella esterna dotata di argomenti di tirocinio che può possedere: [I tirocini possono essere interni o esterni. I tirocini esterni sono in collaborazione con aziende e per essi viene indicato anche il nominativo di referenza aziendale])
 
-ogni Docente in maniera praticamente analoga deve avere:
-Un Nome.
-Un Cognome.
-Una E-Mail.
-ID_Doc [che ci servirà come identificativo].
-Login.
-Password.
-Tirocinio (possibile tabella esterna dotata di argomenti di tirocinio che può possedere: [I tirocini possono essere interni o esterni. I tirocini esterni sono in collaborazione con aziende e per essi viene indicato anche il nominativo di referenza aziend.])
-
-Ritroviamo che il docente può avere la possibilità  di essere coordinatore, risolvibile con un attributo es. is_coo di tipologia booleana(1 per vero 0 per falso).
-
-## Domande/Ambiguita
-
-| Quesito | Stato |
-|---------|-------|
-| tutti i docenti sono relattori? | [Risolto](#1-tutti-i-docenti-sono-relattori) |
-| Il docente ha una matricola/anno immatricolazione  | [Risolto](#2-il-docente-ha-una-matricola) |
-| Cosa si intende con "login"? | [Risolto](#3-cosa-si-intende-con-login) |
-
-
-### 1. Tutti i docenti sono relattori?
-
-Sì non esiste alcuna differenza tra un relattori e docenti sono una cosa unica. 
-
-### 2. Il docente ha una matricola?
-
-il docente ha un suo identificativo univoco non collegato alla matricola del comune studente, di conseguenza non può avere un'anno di immatricolazione. 
-
-### 3. cosa si intende con login
-
-Possiamo definire il login non come il termine reale (l'azione di inserire mail e password o id su un sito per accedere) ma bensì si come un'attributo singolo e atomico (ovvero non composto; perchè lo intendiamo come nominativo per l'accesso). 
+Il docente può avere la possibilità di essere coordinatore, risolvibile con un attributo es. `is_coo` di tipologia booleana (1 per vero, 0 per falso). 
 
 # BREAKDOWN DELLE CLASSI
 
@@ -290,24 +355,3 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
   - Tesi
   - Seduta di Laurea
   - Prenotazione Seduta
-
----
-
-## ⚠️ Nota: Differenze tra UML/Documentazione
-
-L'UML attuale **violates il requisito di "modello di dominio puro"** e presenta le seguenti difformità dalla documentazione:
-
-### Problemi Principali:
-1. **Classi architetturali presenti**: Server, GestioneUtenza, GestioneTirocinio, GestioneTesi, GestioneLaurea (non previste)
-2. **Classi di dominio mancanti**: Richiesta Tirocinio (collassata in Tirocinio), Prenotazione Seduta (collassata in lista)
-3. **Metodi rimossi dalle entità** e spostati ai controller (anemic domain model)
-4. **Attributi mancanti**: 12+ tra cui idTirocinio, corsoDiLaurea, cfuMaturati/Damamaturare, postiDisponibili, etc.
-
-### Impatti Critici:
-- Perdita di tracciabilità storica (prenotazioni, richieste)
-- Entità di dominio senza comportamento (getter/setter only)
-- Confusione semantica tra Tirocinio e RichiestaTirocinio
-- Perdita di controllo sulla capienza delle sedute
-- Informazioni aziendali non tracciabili (referente aziendale)
-
----

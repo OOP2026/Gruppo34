@@ -22,14 +22,6 @@ public class PrenotazioneSeduta {
         this.dataPrenotazione = dataPrenotazione;
     }
 
-    public boolean confermaPrenotazione() {
-        if (seduta.verificaDisponibilita()) {
-            seduta.decrementaPosti();
-            return true;
-        }
-        return false;
-    }
-
     public String getIdPrenotazione() {
         return idPrenotazione;
     }
