@@ -66,7 +66,7 @@ L'UML iniziale violava il requisito di "modello di dominio puro" presentando le 
 
 Per risolvere le criticità sopra citate, è stato applicato rigorosamente il pattern Modello Anemico. Ecco gli interventi effettuati:
 
-### 📋 Entità Pulite
+### Entità Pulite
 
 È stata rimossa tutta la logica di business dalle classi di dominio:
 
@@ -75,14 +75,14 @@ Per risolvere le criticità sopra citate, è stato applicato rigorosamente il pa
 - **Tesi.java** - Rimossi `richiediRevisione()`, `approvaTesi()`
 - **PrenotazioneSeduta.java** - Rimosso `confermaPrenotazione()`
 
-### ⚙️ Manager/Service Creati
+### Manager/Service Creati
 
 - **TirocinioManager.java** - Gestisce la logica dei tirocini
 - **RichiestaTirocinioManager.java** - Crea e valuta richieste
 - **TesiManager.java** - Gestisce caricamento, revisione e approvazione tesi
 - **PrenotazioneManager.java** - Crea e conferma prenotazioni
 
-### 🧪 TestModel.java Aggiornato
+### TestModel.java Aggiornato
 
 Il file di test è stato riorganizzato per dimostrare l'uso corretto dei Manager:
 
@@ -341,17 +341,3 @@ Gestisce l'inserimento dello studente all'interno di una seduta disponibile.
 
 # PROGETTAZIONE UML
 ![DIAGRAM.svg](imgs/uml.png)
-
-## Note sulla progettazione UML
-
-- **Modello di dominio puro**: Il diagramma deve contenere solo le entità di dominio (nessuna classe architetturale/controller)
-- **Classi da includere**:
-  - Utente
-  - Studente
-  - Docente
-  - Tirocinio
-  - Tirocinio Esterno
-  - Richiesta Tirocinio
-  - Tesi
-  - Seduta di Laurea
-  - Prenotazione Seduta
