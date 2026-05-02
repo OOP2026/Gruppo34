@@ -6,7 +6,6 @@
 * [3. Analisi Delle Classi](#analisi-delle-classi)
 * [4. Breakdown Delle Classi](#breakdown-delle-classi)
 * [5. Progettazione UML](#progettazione-uml)
-* [6. Triple T Tribute](#triple-t-tribute)
 
 ---
 
